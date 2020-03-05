@@ -1,5 +1,6 @@
 button, div, form, input {
-	margin: 5px;
+    margin: 5px;
+    /* margin-bottom: 5px; */
 }
 
 img {
@@ -11,27 +12,64 @@ label {
     color: #fff;
 }
 
-.btn-default {
-    color: white;
+#input {
+    color: black;
+    outline-color: yellow;
     font-size: medium;
 }
 
+#gifRating {
+    color: black;
+}
+
 body {
-	background-image: url("../images/quote-bg-img.jpg");
+    /* background-image: url("../images/CageSarcasmBackground.png"); */
+    background-color: lightblue;
+    
     font-family: Karla;
-    /* background-repeat: no-repeat; */
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* background-size: cover; */
+    background-position: right bottom;
 }
 
 .holder {
+    /* keep placing images to the left until row is filled */
     float: left;
 }
 
-#title {
-    text-align: center;
-    color: white;
+#labelText {
+    color: black;
 }
 
+#title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: xx-large;
 
+    text-align: center;
+    
+    letter-spacing: 3px;
+    
+    color: red;
+}
 
+/* keep nicolas cage on the bottom */
+#cage {
+    float: right;
+    max-width: 400px;
+	max-height: 400px;
+}
 
+.container {
+    height: 100vh;
+  }
+
+#bottomRow {
+    height: 100%;
+}
+
+.col-lg-12.col-md-12.col-sm-12 {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}

@@ -1,93 +1,101 @@
-$(document).ready(function () {
+function displayImg() {
+    $("#display-images").empty();
+    var input = $(this).attr("data-name");
+    var limit = 10;
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + input + "&limit=" + limit + "&api_key=8OnpuK93M1dvSH36Erw7nQlOEdnVRuGs";
 
-    var displayedButtons = ["Whatever", "Don't even", "I hate you"];
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).done(function (response) {
+        console.log(response);
+        for (var i = 0; i < limit; i++) {
 
-    function displayImg() {
+            // create a div tag for each search query then ...
+            var display_Div = $("<div>");
+            display_Div.addClass("holder");
 
-        $("#display-images").empty();
-        var input = $(this).attr("data-name");
-        var limit = 10;
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + input + "&limit=" + limit + "&api_key=dc6zaTOxFJmzC";
+            // ... create an imageTag tag and add a bunch of attributes ...
+            var imageTag = $("<img>");
+            imageTag.attr("src", response.data[i].images.original_still.url);
+            imageTag.attr("data-still", response.data[i].images.original_still.url);
+            imageTag.attr("data-animate", response.data[i].images.original.url);
+            imageTag.attr("data-state", "still");
+            imageTag.attr("class", "gif");
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).done(function (response) {
+            // ... then append imageTag tag to parent div
+            display_Div.append(imageTag);
 
-            for (var j = 0; j < limit; j++) {
+            // ... then create a P tag and obtain the gifs rating ...
+            var ratingData = response.data[i].rating;
 
-                var displayDiv = $("<div>");
-                displayDiv.addClass("holder");
+            var rating_Ptag = $("<p>");
+            rating_Ptag.attr("id", "gifRating")
+            rating_Ptag.text("Rating: " + ratingData);
 
-                var image = $("<img>");
-                image.attr("src", response.data[j].images.original_still.url);
-                image.attr("data-still", response.data[j].images.original_still.url);
-                image.attr("data-animate", response.data[j].images.original.url);
-                image.attr("data-state", "still");
-                image.attr("class", "gif");
-                displayDiv.append(image);
+            // ... add tag to display div below image
+            display_Div.append(rating_Ptag);
 
-                var rating = response.data[j].rating;
-                console.log(response);
-                var pRating = $("<p>").text("Rating: " + rating);
-                displayDiv.append(pRating)
+            // add new divs to the display-imageTags parent div
+            $("#display-images").append(display_Div);
+        }
+    });
+};
 
-                $("#display-images").append(displayDiv);
-            }
-        });
+function renderButtons(buttonList) {
+    // you are rebuilding the buttons everytime
+    // there is a new button; clear old first
+    $("#display-buttons").empty();
+
+    for (var i = 0; i < buttonList.length; i++) {
+        var newButton = $("<button>");
+        newButton.attr("class", "btn btn-outline-primary");
+        newButton.attr("id", "input")
+        newButton.attr("data-name", buttonList[i]);
+        newButton.text(buttonList[i]);
+        $("#display-buttons").append(newButton);
+    }
+};
+
+// change whether the image is still or an animated gif by clicking
+function ChangeImageState() {
+    var state = $(this).attr("data-state");
+    var animateImage = $(this).attr("data-animate");
+    var stillImage = $(this).attr("data-still");
+
+    if (state == "still") {
+        $(this).attr("src", animateImage);
+        $(this).attr("data-state", "animate");
     }
 
-    function renderButtons() {
-        // you are rebuilding the buttons everytime
-        // there is a new button; clear old first
-        $("#display-buttons").empty();
-
-        for (var i = 0; i < displayedButtons.length; i++) {
-            var newButton = $("<button>");
-            newButton.attr("class", "btn btn-default");
-            newButton.attr("id", "input")
-            newButton.attr("data-name", displayedButtons[i]);
-            newButton.text(displayedButtons[i]);
-            $("#display-buttons").append(newButton);
-        }
+    else if (state == "animate") {
+        $(this).attr("src", stillImage);
+        $(this).attr("data-state", "still");
     }
-
-    function ChangeImageState() {
-
-        var state = $(this).attr("data-state");
-        var animateImage = $(this).attr("data-animate");
-        var stillImage = $(this).attr("data-still");
-
-        if (state == "still") {
-            $(this).attr("src", animateImage);
-            $(this).attr("data-state", "animate");
-        }
-
-        else if (state == "animate") {
-            $(this).attr("src", stillImage);
-            $(this).attr("data-state", "still");
-        }
-    }
-
-    $("#submitPress").on("click", function () {
-
-        var input = $("#user-input").val().trim();
-        form.reset();
-        displayedButtons.push(input);
-
-        renderButtons();
-
-        return false;
-    })
-
-    renderButtons();
-
-    $(document).on("click", "#input", displayImg);
-    $(document).on("click", ".gif", ChangeImageState);
-});
+};
 
 // code entry point
 function Main() {
+
+    // set page to run only after everything loaded
+    $(document).ready(function () {
+        var displayedButtons = ["No, really", "That's great", "You're so funny"];
+
+        $("#submitPress").on("click", function () {
+            var input = $("#user-input").val().trim();
+            form.reset();
+            displayedButtons.push(input);
+
+            renderButtons(displayedButtons);
+
+            return false;
+        });
+
+        renderButtons(displayedButtons);
+
+        $(document).on("click", "#input", displayImg);
+        $(document).on("click", ".gif", ChangeImageState);
+    });
 
 };
 

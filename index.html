@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SARCASTIFY</title>
+    <title>Nice Gif</title>
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!-- AJax -->
 
     <!-- CSS / Bootstrap Styles -->
     <link rel='stylesheet' type='text/css' media='screen' href='assets/css/reset.css'>
@@ -26,8 +24,7 @@
 
         <div class="row" id="title">
             <div class="col-md-12">
-                <h1>SARCASTIFY</h1>
-                <h5>Plagarized Giphy Search</h5>
+                <h1>Totally Original<br>Giphy Search</h1>
             </div>
         </div>
 
@@ -36,24 +33,38 @@
             <div class="col-md-12" id="display-buttons"></div>
         </div>
 
+        <!-- user input row -->
         <div class="row">
             <div class="col-md-12">
                 <form id="form">
-                    <label for="user-input">Enter an emotion</label><br>
+                    <label id="labelText" for="user-input">Be sincere:</label><br>
                     <input type="text" id="user-input">
                     <input id="submitPress" type="submit" value="Submit" class="btn btn-default">
                 </form>
             </div>
         </div>
 
+        <!-- row for image search results -->
         <div class="row">
-            <div class="col-md-12" id="display-images"></div>
+            <div class="col-md-12" id="display-images">
+                <!-- js will create div and img tags here -->
+            </div>
+        </div>
+
+        <!-- nicolas cage -->
+        <div id="bottomRow" class="row">
+            <div class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <img id="cage" src="assets/images/CageSarcasmBackground.png">
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- Link to JS -->
+    <!-- link to js -->
     <script src="assets/javascript/engine.js"></script>
+
 </body>
 
 </html>

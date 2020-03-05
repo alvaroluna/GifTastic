@@ -73,3 +73,9 @@ body {
   display: flex;
   align-items: flex-end;
 }
+
+.btn-outline-primary {
+    background-color: white !important;
+    outline-color: white !important;
+    outline: black;
+}

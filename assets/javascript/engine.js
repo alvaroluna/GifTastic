@@ -49,7 +49,7 @@ function renderButtons(buttonList) {
 
     for (var i = 0; i < buttonList.length; i++) {
         var newButton = $("<button>");
-        newButton.attr("class", "btn btn-outline-primary");
+        newButton.attr("class", "btn btn-light");
         newButton.attr("id", "input")
         newButton.attr("data-name", buttonList[i]);
         newButton.text(buttonList[i]);
